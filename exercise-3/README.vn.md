@@ -1,17 +1,28 @@
-Cho hai số nguyên n và t. Hãy trả về số nhỏ nhất lớn hơn hoặc bằng n sao cho tích các chữ số của nó chia hết cho t.
+Cho một mảng số nguyên nums có độ dài n, bạn muốn tạo một mảng ans có độ dài 2n sao cho:
+
+ans[i] == nums[i] và
+ans[i + n] == nums[i] với 0 <= i < n (chỉ số bắt đầu từ 0).
+Cụ thể, ans là kết quả của việc nối hai mảng nums lại với nhau.
+
+Trả về mảng ans.
 
 Ví dụ 1:
-Đầu vào: n = 10, t = 2
-Đầu ra: 10
-Giải thích:
-Tích các chữ số của 10 là 0, chia hết cho 2, khiến nó trở thành số nhỏ nhất lớn hơn hoặc bằng 10 thỏa mãn điều kiện.
+Đầu vào: nums = [1,2,1]
+Đầu ra: [1,2,1,1,2,1]
 
+Giải thích: Mảng ans được tạo như sau:
+
+ans = [nums[0], nums[1], nums[2], nums[0], nums[1], nums[2]]
+ans = [1,2,1,1,2,1]
 Ví dụ 2:
-Đầu vào: n = 15, t = 3
-Đầu ra: 16
-Giải thích:
-Tích các chữ số của 16 là 6, chia hết cho 3, khiến nó trở thành số nhỏ nhất lớn hơn hoặc bằng 15 thỏa mãn điều kiện.
+Đầu vào: nums = [1,3,2,1]
+Đầu ra: [1,3,2,1,1,3,2,1]
 
+Giải thích: Mảng ans được tạo như sau:
+
+ans = [nums[0], nums[1], nums[2], nums[3], nums[0], nums[1], nums[2], nums[3]]
+ans = [1,3,2,1,1,3,2,1]
 Ràng buộc:
-1 <= n <= 100
-1 <= t <= 10
+n == nums.length
+1 <= n <= 1000
+1 <= nums[i] <= 1000

@@ -3,18 +3,27 @@
 import unittest
 
 
-def getConcatenation(nums):
-    len_n = len(nums)
-    res = [0]*2*len_n
-    for i in range(len(res)):
-        if i >= len_n:
-            res[i] = nums[i-len_n]
-        else:
-            res[i] = nums[i]
-    return res
+def get_concatenation(nums):
+    pass
 
 
-nums = [1, 2, 1]
+class TestGetConcatenation(unittest.TestCase):
+    def test_example_cases(self):
+        self.assertEqual(get_concatenation([1, 2, 1]), [1, 2, 1, 1, 2, 1])
+        self.assertEqual(get_concatenation(
+            [1, 3, 2, 1]), [1, 3, 2, 1, 1, 3, 2, 1])
+
+    def test_empty_list(self):
+        self.assertEqual(get_concatenation([]), [])
+
+    def test_single_element(self):
+        self.assertEqual(get_concatenation([5]), [5, 5])
+
+    def test_large_list(self):
+        nums = list(range(1000))
+        expected = nums + nums
+        self.assertEqual(get_concatenation(nums), expected)
 
 
-print(getConcatenation(nums))
+if __name__ == "__main__":
+    unittest.main()
