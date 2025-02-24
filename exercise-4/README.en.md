@@ -23,6 +23,7 @@ Create a simple shopping cart system where users can add products, calculate tot
      - remove_item(product) - Remove a product  
      - get_total() - Calculate the total (including discounts)  
      - calculate_discount() - Calculate the discount based on rules  
+     - search_product(search_term) - Search for products in the cart by name (case-insensitive)  
 
 ### Requirements
 
@@ -35,6 +36,11 @@ Create a simple shopping cart system where users can add products, calculate tot
    - If the total quantity of items in the cart exceeds 5, apply a 10% discount on the total.  
    - If there are at least 2 electronic products (ElectronicProduct), apply an additional 5% discount on the total (after the 10% discount, if applicable).  
    - The calculate_discount() method should return the discount amount, and get_total() should subtract this amount from the original total.
+
+3. **Product Search**  
+   - The search_product(search_term) method searches for products in the cart whose names contain the provided search term.  
+   - Search must be case-insensitive (e.g., "laptop" matches "Laptop" or "LAPTOP").  
+   - Returns a list of (product, quantity) pairs for matching products.
 
 ### Example Usage
 
@@ -49,6 +55,11 @@ cart = ShoppingCart()
 cart.add_item(laptop, 2)    # 2 laptops
 cart.add_item(phone, 1)     # 1 phone
 cart.add_item(notebook, 3)  # 3 notebooks
+
+# Search for products
+results = cart.search_product("laptop")
+for product, quantity in results:
+    print(f"Found: {product.name} - Quantity: {quantity}")
 
 # Print information
 discount = cart.calculate_discount()
@@ -68,6 +79,7 @@ print(f"Cart total: ${total:.2f}")
 **Printed Result:**  
 
 ```
+Found: Gaming Laptop - Quantity: 2
 Discount: $379.17
 Cart total: $2235.77
 ```

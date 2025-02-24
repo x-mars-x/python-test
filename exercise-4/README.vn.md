@@ -23,6 +23,7 @@ Tạo một hệ thống giỏ hàng đơn giản nơi người dùng có thể 
      - remove_item(product) - Xóa một sản phẩm  
      - get_total() - Tính tổng tiền (bao gồm giảm giá)  
      - calculate_discount() - Tính toán giảm giá dựa trên quy tắc  
+     - search_product(search_term) - Tìm kiếm sản phẩm trong giỏ hàng theo tên (không phân biệt hoa/thường)  
 
 ### Yêu Cầu
 
@@ -35,6 +36,11 @@ Tạo một hệ thống giỏ hàng đơn giản nơi người dùng có thể 
    - Nếu tổng số lượng mặt hàng trong giỏ vượt quá 5, áp dụng giảm giá 10% trên tổng tiền.  
    - Nếu có ít nhất 2 sản phẩm điện tử (ElectronicProduct), áp dụng thêm 5% giảm giá trên tổng tiền (sau khi đã giảm 10%, nếu có).  
    - Phương thức calculate_discount() trả về số tiền giảm giá, và get_total() sẽ trừ số tiền này khỏi tổng tiền ban đầu.
+
+3. **Tìm Kiếm Sản Phẩm**  
+   - Phương thức search_product(search_term) tìm kiếm các sản phẩm trong giỏ hàng có tên chứa từ khóa được cung cấp.  
+   - Tìm kiếm không phân biệt chữ hoa/thường (ví dụ: "laptop" khớp với "Laptop" hoặc "LAPTOP").  
+   - Trả về danh sách các cặp (sản phẩm, số lượng) cho các sản phẩm khớp.
 
 ### Ví Dụ Sử Dụng
 
@@ -49,6 +55,11 @@ cart = ShoppingCart()
 cart.add_item(laptop, 2)    # 2 laptop
 cart.add_item(phone, 1)     # 1 điện thoại
 cart.add_item(notebook, 3)  # 3 sổ tay
+
+# Tìm kiếm sản phẩm
+results = cart.search_product("laptop")
+for product, quantity in results:
+    print(f"Tìm thấy: {product.name} - Số lượng: {quantity}")
 
 # In thông tin
 discount = cart.calculate_discount()
@@ -68,6 +79,7 @@ print(f"Tổng tiền giỏ hàng: ${total:.2f}")
 **Kết Quả In Ra:**  
 
 ```
+Tìm thấy: Laptop Chơi Game - Số lượng: 2
 Giảm giá: $379.17
 Tổng tiền giỏ hàng: $2235.77
 ```

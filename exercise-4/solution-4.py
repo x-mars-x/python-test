@@ -98,6 +98,35 @@ class TestShoppingCartSystem(unittest.TestCase):
             self.cart.calculate_discount(), expected_discount, places=2)
         self.assertAlmostEqual(self.cart.get_total(), expected_total, places=2)
 
+    # Test search_product method
+    def test_search_product(self):
+        # Add items to the cart
+        self.cart.add_item(self.laptop, 2)    # "Gaming Laptop"
+        self.cart.add_item(self.phone, 1)     # "Smartphone"
+        self.cart.add_item(self.notebook, 3)  # "Notebook"
+
+        # Test case-insensitive search
+        results = self.cart.search_product("laptop")
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0][0].name, "Gaming Laptop")
+        self.assertEqual(results[0][1], 2)
+
+        # Test partial match and case insensitivity
+        results = self.cart.search_product("SMART")
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0][0].name, "Smartphone")
+        self.assertEqual(results[0][1], 1)
+
+        # Test no matches
+        results = self.cart.search_product("xyz")
+        self.assertEqual(len(results), 0)
+
+        # Test uppercase search
+        results = self.cart.search_product("NOTEBOOK")
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0][0].name, "Notebook")
+        self.assertEqual(results[0][1], 3)
+
 
 if __name__ == '__main__':
     unittest.main()
