@@ -4,15 +4,60 @@ import unittest
 
 
 class Product:
-    pass
+    def __init__(self, name, price):
+        if price < 0:
+            raise ValueError("Price cannot be negative")
+        self.name = name
+        self.price = price
+
+    def get_price(self):
+        return self.price
 
 
 class ElectronicProduct(Product):
-    pass
+    def __init__(self, name, price, warranty_years):
+        super().__init__(name, price)
+        self.warranty_years = warranty_years
 
 
 class ShoppingCart:
-    pass
+    def __init__(self):
+        self.items = {}  # product: quantity
+
+    def add_item(self, product, quantity):
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
+        if quantity > 0:
+            if product in self.items:
+                self.items[product] += quantity
+            else:
+                self.items[product] = quantity
+
+    def remove_item(self, product):
+        if product not in self.items:
+            raise ValueError("Product not in cart")
+        del self.items[product]
+
+    def get_total(self):
+        original_total = sum(p.get_price() * q for p, q in self.items.items())
+        discount = self.calculate_discount()
+        return original_total - discount
+
+    def calculate_discount(self):
+        total_quantity = sum(self.items.values())
+        original_total = sum(p.get_price() * q for p, q in self.items.items())
+
+        discount = 0
+        if total_quantity > 5:
+            discount += original_total * 0.10
+
+        electronic_count = sum(q for p, q in self.items.items()
+                               if isinstance(p, ElectronicProduct))
+        if electronic_count >= 2:
+            after_first_discount = original_total - discount
+            discount += after_first_discount * 0.05
+
+        return discount
 
 
 class TestShoppingCartSystem(unittest.TestCase):
